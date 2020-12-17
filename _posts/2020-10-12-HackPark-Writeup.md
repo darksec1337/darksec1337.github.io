@@ -12,7 +12,7 @@ tags: [] # add tag
 ### Enumeration
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/hackpark  rustscan 10.10.246.43
+root@parrot  ~/Desktop/tryhackme/hackpark  rustscan 10.10.246.43
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
