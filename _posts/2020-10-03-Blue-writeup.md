@@ -87,7 +87,7 @@ Nmap done: 1 IP address (1 host up) scanned in 13.74 seconds
 As per name we can see it is windows having smb open so probably eternal Blue
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/hackthebox/blue  nmap --script smb-vuln-ms17-010 -p 445 10.10.10.40
+✘ root@parrot  ~/Desktop/hackthebox/blue  nmap --script smb-vuln-ms17-010 -p 445 10.10.10.40
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-10-03 21:21 IST
 Nmap scan report for 10.10.10.40
 Host is up (0.36s latency).
