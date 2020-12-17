@@ -20,7 +20,7 @@ tags: [cve, screen, curl] # add tag
 ### Enumration
 
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/haircut  rustscan  10.10.10.24
+root@parrot  ~/Desktop/hackthebox/haircut  rustscan  10.10.10.24
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
