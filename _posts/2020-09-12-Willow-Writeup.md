@@ -30,7 +30,7 @@ The Following Post is writeup of Kiba room of tryhackme <https://tryhackme.com/r
 Let's start with nmap scan.
 
 ```bash
-┌─[✗]─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[✗]─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $cat nmap/willow
 # Nmap 7.80 scan initiated Sun Sep 13 18:07:07 2020 as: nmap -sC -sV -oN nmap/willow 10.10.254.210
 Nmap scan report for 10.10.254.210
@@ -97,7 +97,7 @@ and we know Willow is username.
 We can also see there is a network file system.<br />
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $showmount -e 10.10.254.210
 Export list for 10.10.254.210:
 /var/failsafe *
@@ -105,21 +105,21 @@ Export list for 10.10.254.210:
 so we can mount /var/failsafe
 
 ```bash
-┌─[✗]─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[✗]─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $sudo mount 10.10.254.210:/var/failsafe ~/Desktop/tryhackme/willow/mount
 [sudo] password for argenestel:
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $ls
 mount  nmap  something.txt
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $cd mount/
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow/mount]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow/mount]
 └──╼ $ls -la
 total 8
 drwxr--r-- 2 nobody     nogroup    4096 Jan 30  2020 .
 drwxr-xr-x 1 argenestel argenestel   64 Sep 13 18:52 ..
 -rw-r--r-- 1 root       root         62 Jan 30  2020 rsa_keys
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow/mount]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow/mount]
 └──╼ $cat rsa_keys
 Public Key Pair: (23, 37627)
 Private Key Pair: (<redacted>)
@@ -166,7 +166,7 @@ so we got user.jpg and we can use steghide to extract root flag.<br />
 The hint was we already got flag and now we have root password.
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $steghide extract -sf user.jpg
 Enter passphrase:
 wrote extracted data to "root.txt".
