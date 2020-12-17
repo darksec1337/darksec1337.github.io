@@ -24,7 +24,7 @@ Room Link <https://tryhackme.com/room/bebop>
 ### Enumeration
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/bebop  rustscan 10.10.161.59
+root@parrot  ~/Desktop/tryhackme/bebop  rustscan 10.10.161.59
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
@@ -60,7 +60,7 @@ Nmap done: 1 IP address (1 host up) scanned in 10.13 seconds
 #### Port23
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/bebop  telnet 10.10.161.59                     
+root@parrot  ~/Desktop/tryhackme/bebop  telnet 10.10.161.59                     
 Trying 10.10.161.59...
 Connected to 10.10.161.59.
 Escape character is '^]'.
