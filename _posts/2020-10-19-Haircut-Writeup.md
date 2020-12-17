@@ -84,7 +84,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ![port80](/assets/img/haircut/port80.png)
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/haircut  ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://haircut.htb/FUZZ.php
+root@parrot  ~/Desktop/hackthebox/haircut  ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://haircut.htb/FUZZ.php
 
        /'___\  /'___\           /'___\       
       /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -159,7 +159,7 @@ https://www.exploit-db.com/exploits/41154
 ```terminal
 Saving to: 'rootshell'
 
-rootshell                         100%[==========================================================>]  16.42K  33.2KB/s    in 0.5s    
+root@shell                         100%[==========================================================>]  16.42K  33.2KB/s    in 0.5s    
 
 2020-10-19 07:26:13 (33.2 KB/s) - 'rootshell' saved [16816/16816]
 
