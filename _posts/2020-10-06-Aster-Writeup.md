@@ -29,8 +29,8 @@ The Following Post is writeup of Aster room of tryhackme <https://tryhackme.com/
 Let's start with nmap scan.
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/aster  mkdir nmap
-argenestel@parrot  ~/Desktop/tryhackme/aster  rustscan 10.10.82.20
+root@parrot  ~/Desktop/tryhackme/aster  mkdir nmap
+root@parrot  ~/Desktop/tryhackme/aster  rustscan 10.10.82.20
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
@@ -109,7 +109,7 @@ Let's check port 80.
 So there is pyc file we can use uncompyle6
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/tryhackme/aster  wget 10.10.82.20/output.pyc
+✘ root@parrot  ~/Desktop/tryhackme/aster  wget 10.10.82.20/output.pyc
 --2020-10-02 15:10:00--  http://10.10.82.20/output.pyc
 Connecting to 10.10.82.20:80... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -122,7 +122,7 @@ output.pyc                        100%[=========================================
 
 I saw the app let's check what it does
 
-argenestel@parrot  ~/Desktop/tryhackme/aster  uncompyle6 output.pyc
+root@parrot  ~/Desktop/tryhackme/aster  uncompyle6 output.pyc
 # uncompyle6 version 3.7.4
 # Python bytecode 2.7 (62211)
 # Decompiled from: Python 3.8.5 (default, Aug  2 2020, 15:09:07)
@@ -156,7 +156,7 @@ so i know the user name searching in msf get us
 So we have username and password
 
 ```bash
-✘ argenestel@parrot  ~/Desktop/tryhackme/aster  telnet 10.10.195.189 5038
+✘ root@parrot  ~/Desktop/tryhackme/aster  telnet 10.10.195.189 5038
 Trying 10.10.195.189...
 Connected to 10.10.195.189.
 Escape character is '^]'.
