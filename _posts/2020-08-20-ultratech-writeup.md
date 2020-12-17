@@ -31,7 +31,7 @@ The Following Post is writeup of UltraTech room of tryhackme <https://tryhackme.
 As usual
 Lets start with nmap scan
 ```terminal
-┌─[silver@parrot]─[~/Desktop/tryhackme/ultratech]
+┌─[root@parrot]─[~/Desktop/tryhackme/ultratech]
 └──╼ $nmap -sC -sV 10.10.70.180
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-14 03:48 EDT
 Nmap scan report for 10.10.70.180
