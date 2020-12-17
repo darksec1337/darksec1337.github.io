@@ -24,7 +24,7 @@ The room have 2 ports open 22 and 10000. 10000 port have python running in it an
 ## Walkthrough
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/develpyy  rustscan 10.10.252.89
+root@parrot  ~/Desktop/tryhackme/develpyy  rustscan 10.10.252.89
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
@@ -71,7 +71,7 @@ Starting Nmap 7.80 ( https://nmap.org ) at 2020-10-02 16:59 IST
 Unable to split netmask from target expression: "nmap/develpy"
 Failed to resolve "-".
 
-✘ argenestel@parrot  ~/Desktop/tryhackme/develpyy  nmap -sC -sV -p22,10000 nmap/develpy -v 10.10.252.89
+✘ root@parrot  ~/Desktop/tryhackme/develpyy  nmap -sC -sV -p22,10000 nmap/develpy -v 10.10.252.89
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-10-02 16:59 IST
 NSE: Loaded 151 scripts for scanning.
 NSE: Script Pre-scanning.
@@ -190,7 +190,7 @@ Nmap done: 1 IP address (1 host up) scanned in 143.34 seconds
 ## Port 10000
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/develpyy  nc 10.10.252.89 10000
+root@parrot  ~/Desktop/tryhackme/develpyy  nc 10.10.252.89 10000
 
         Private 0days
 
@@ -210,7 +210,7 @@ https://medium.com/@GallegoDor/python-exploitation-1-input-ac10d3f4491f
 Okay we can exploit it by Sending system input.
 
 ```bash
- ✘ argenestel@parrot  ~/Desktop/tryhackme/develpyy  nc 10.10.252.89 10000
+ ✘ root@parrot  ~/Desktop/tryhackme/develpyy  nc 10.10.252.89 10000
 
         Private 0days
 
