@@ -170,7 +170,7 @@ The hint was we already got flag and now we have root password.
 └──╼ $steghide extract -sf user.jpg
 Enter passphrase:
 wrote extracted data to "root.txt".
-┌─[argenestel@parrot]─[~/Desktop/tryhackme/willow]
+┌─[root@parrot]─[~/Desktop/tryhackme/willow]
 └──╼ $cat root.txt
 ```
 
