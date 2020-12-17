@@ -10,4 +10,4 @@ title: About
 
 CyberSecurity Enthusiast and CTF Player.
 
-I got my htb sub so i will be posting more content from htb.
+I got my htm,thm and ctf wruteUps sub so i will be posting more content from htb,thm and ctf
