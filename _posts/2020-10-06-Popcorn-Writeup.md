@@ -20,7 +20,7 @@ tags: [torrent, web, upload] # add tag
 ### Enumeration
 
 ```bash
-argenestel@parrot  ~/Desktop/hackthebox/popcorn  rustscan 10.10.10.6
+root@parrot  ~/Desktop/hackthebox/popcorn  rustscan 10.10.10.6
 .----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
 | {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
 | .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
