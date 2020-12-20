@@ -145,7 +145,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-12-19 16:20:
 [STATUS] 245.33 tries/min, 736 tries in 00:03h, 14343663 to do in 974:27h, 16 active
 [21][ftp] host: 10.10.148.195   login: ftpuser   password: <redacted>
 1 of 1 target successfully completed, 1 valid password found
-Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2020-09-28 16:24:53
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2020-12-19 16:24:53
 ```
 
 250 Directory successfully changed.
