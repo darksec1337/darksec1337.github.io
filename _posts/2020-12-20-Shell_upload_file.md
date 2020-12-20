@@ -1,3 +1,11 @@
+---
+layout: post
+title: Shell Upload File
+date: 2020-12-20 00:00:00 +5:30
+categories: [Tips and Trik]
+tags: [Hacking tips and trik] # add tag
+---
+
 # File Upload
 
 ## File Upload General Methodology
