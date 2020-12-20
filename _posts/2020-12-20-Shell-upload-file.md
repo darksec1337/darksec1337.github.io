@@ -2,8 +2,8 @@
 layout: post
 title: Shell Upload File
 date: 2020-12-20 00:00:00 +5:30
-categories: [Tips and Trik]
-tags: [Hacking tips and trik] # add tag
+categories: [WebApp]
+tags: [WepApp] # add tag
 ---
 
 # File Upload
