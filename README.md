@@ -1,4 +1,4 @@
 ### Write Ups Hackthebox
 
-[darksecc.github.io](https://darksecc.github.io)
+[darksec.or.id](https://darksec.or.id)
 
