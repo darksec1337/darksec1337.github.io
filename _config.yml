@@ -10,7 +10,7 @@
 
 title: 2> /dev/null                        # the main title
 
-tagline: Writeups of CTFs,tryhackme and Hackthebox  # it will display as the sub-title
+tagline: Writeups of CTF's  # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   An InfoSec Blog containing Walkthroughs from TryHackMe and CTFs.
@@ -30,11 +30,11 @@ twitter:
 
 social:
   name: darksec                  # it will shows as the copyright owner in Footer
-  email: ly_def@yahoo.com            # change to your email address
+  email: root@darksec1337.net            # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/enoleriiand      # change to your twitter homepage
-    - https://github.com/darksec1337       # change to your github homepage
+    - https://github.com/       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
