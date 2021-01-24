@@ -105,7 +105,7 @@ It is arbitrary file upload, but taking a quick look at it with searchsploit -x 
 ### Directory Brute Force
 I’ll run gobuster against the site, and include -x php since I know the site is PHP:
 
-root@kali# gobuster dir -u http://10.10.10.207 -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php -o scans/gobuster-root-small-php -t 30
+```root@kali# gobuster dir -u http://10.10.10.207 -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php -o scans/gobuster-root-small-php -t 30
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
