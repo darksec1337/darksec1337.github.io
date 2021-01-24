@@ -27,7 +27,7 @@ The first thing I did for penetration testing was the Infomasion Gathering of ta
 
 nmap found two open TCP ports, SSH (22) and HTTP (80):
 
-```
+```bash
 root@kali# nmap -p- --min-rate 10000 -oA scans/alltcp 10.10.10.207
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-16 07:19 EST
 Nmap scan report for 10.10.10.207
