@@ -46,7 +46,7 @@ Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 43.25 seconds
 ```
-``Open ports are 21 FTP, 22 SSH and 80 HTTP.```
+```Open ports are 21 FTP, 22 SSH and 80 HTTP.```
 
 ### GoBuster
 
