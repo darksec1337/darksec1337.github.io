@@ -50,7 +50,9 @@ Nmap done: 1 IP address (1 host up) scanned in 43.25 seconds
 
 ### GoBuster
 
-```gobuster dir -u <IP> -w /usr/share/dirb/wordlists/common.txt -x txt,php,sh,cgi,html,zip,bak,sql```
+```
+gobuster dir -u <IP> -w /usr/share/dirb/wordlists/common.txt -x txt,php,sh,cgi,html,zip,bak,sql
+```
 
 ### FTP
 
