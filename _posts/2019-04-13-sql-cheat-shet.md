@@ -1,7 +1,7 @@
 ---
 title: sql injection
 date: 2019-04-13 00:00:00 +5:30
-categories: [cheat sheat, easy]
+categories: [cheat sheat, SQL]
 tags: [sql injection] # add tag
 image: /assets/img/sql/sql.png
 ---
